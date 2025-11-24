@@ -9,6 +9,8 @@ environment:
 
 dependencies:
   bloc: ^9.0.1
+  coffee_repository:
+    path: packages/coffee_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

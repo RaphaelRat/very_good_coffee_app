@@ -81,6 +81,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
+  coffee_api:
+    dependency: transitive
+    description:
+      path: "packages/coffee_api"
+      relative: true
+    source: path
+    version: "0.1.0+1"
+  coffee_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/coffee_repository"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   collection:
     dependency: transitive
     description:
@@ -176,6 +190,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.3"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: "87721a4a50b19c7f1d49001e51409bddc46303966ce89a65af4f4e6004896412"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.0"
   http_multi_server:
     dependency: transitive
     description:
