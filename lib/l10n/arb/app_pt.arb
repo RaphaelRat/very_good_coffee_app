@@ -1,0 +1,7 @@
+{
+    "@@locale": "pt",
+    "counterAppBarTitle": "Café Tinder",
+    "@counterAppBarTitle": {
+        "description": "Texto exibido na AppBar da página principal de café"
+    }
+}
