@@ -33,8 +33,9 @@ void main() {
 
   group('CoffeePage', () {
     testWidgets('provides bloc and requests coffee on start', (tester) async {
-      when(() => repository.fetchRandomCoffeeImageUrl())
-          .thenAnswer((_) async => 'https://example.com/a.jpg');
+      when(
+        () => repository.fetchRandomCoffeeImageUrl(),
+      ).thenAnswer((_) async => 'https://example.com/a.jpg');
 
       await tester.pumpApp(
         RepositoryProvider.value(
@@ -66,9 +67,9 @@ void main() {
       );
     }
 
-    testWidgets(
-      'shows loading indicator when state is loading',
-      (tester) async {
+    testWidgets('shows loading indicator when state is loading', (
+      tester,
+    ) async {
       when(() => bloc.state).thenReturn(const CoffeeLoadInProgress());
       whenListen(
         bloc,
@@ -82,9 +83,9 @@ void main() {
       expect(find.text('Fetching coffee...'), findsOneWidget);
     });
 
-    testWidgets(
-      'shows image and enables actions on load success',
-      (tester) async {
+    testWidgets('shows image and enables actions on load success', (
+      tester,
+    ) async {
       when(() => bloc.state).thenReturn(
         const CoffeeLoadSuccess('https://example.com/a.jpg'),
       );
