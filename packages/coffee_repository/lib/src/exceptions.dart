@@ -1,6 +1,7 @@
 import 'package:coffee_repository/coffee_repository.dart' show CoffeeRepository;
 import 'package:coffee_repository/src/coffee_repository.dart'
     show CoffeeRepository;
+
 /// Base class for all exceptions thrown by the [CoffeeRepository].
 ///
 /// Repository exceptions represent domain-level failures. They are

@@ -135,6 +135,101 @@ void main() {
       },
     );
 
+    testWidgets('shows download failure and retries save', (tester) async {
+      when(() => bloc.state).thenReturn(
+        const CoffeeDownloadFailure(
+          imageUrl: 'https://example.com/a.jpg',
+          message: 'download failed',
+        ),
+      );
+      whenListen(
+        bloc,
+        Stream<CoffeeState>.fromIterable(
+          [
+            const CoffeeDownloadFailure(
+              imageUrl: 'https://example.com/a.jpg',
+              message: 'download failed',
+            ),
+          ],
+        ),
+        initialState: const CoffeeDownloadFailure(
+          imageUrl: 'https://example.com/a.jpg',
+          message: 'download failed',
+        ),
+      );
+
+      await tester.pumpApp(buildSubject());
+
+      expect(find.text('download failed'), findsOneWidget);
+
+      await tester.tap(find.text('Try again'));
+
+      verify(
+        () => bloc.add(const CoffeeSaved('https://example.com/a.jpg')),
+      ).called(1);
+    });
+
+    testWidgets('refresh button dispatches CoffeeRequested', (tester) async {
+      when(() => bloc.state).thenReturn(
+        const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+      whenListen(
+        bloc,
+        Stream<CoffeeState>.fromIterable(
+          [const CoffeeLoadSuccess('https://example.com/a.jpg')],
+        ),
+        initialState: const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+
+      await tester.pumpApp(buildSubject());
+
+      await tester.tap(find.byKey(CoffeeView.refreshButtonKey));
+
+      verify(() => bloc.add(const CoffeeRequested())).called(1);
+    });
+
+    testWidgets('save button dispatches CoffeeSaved', (tester) async {
+      when(() => bloc.state).thenReturn(
+        const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+      whenListen(
+        bloc,
+        Stream<CoffeeState>.fromIterable(
+          [const CoffeeLoadSuccess('https://example.com/a.jpg')],
+        ),
+        initialState: const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+
+      await tester.pumpApp(buildSubject());
+
+      await tester.tap(find.byKey(CoffeeView.saveAndNextButtonKey));
+
+      verify(
+        () => bloc.add(const CoffeeSaved('https://example.com/a.jpg')),
+      ).called(1);
+    });
+
+    testWidgets('retry button dispatches CoffeeRequested on load failure', (
+      tester,
+    ) async {
+      when(() => bloc.state).thenReturn(
+        const CoffeeLoadFailure('oops'),
+      );
+      whenListen(
+        bloc,
+        Stream<CoffeeState>.fromIterable(
+          [const CoffeeLoadFailure('oops')],
+        ),
+        initialState: const CoffeeLoadFailure('oops'),
+      );
+
+      await tester.pumpApp(buildSubject());
+
+      await tester.tap(find.text('Try again'));
+
+      verify(() => bloc.add(const CoffeeRequested())).called(1);
+    });
+
     testWidgets('navigates to favorites page', (tester) async {
       when(() => bloc.state).thenReturn(
         const CoffeeLoadSuccess('https://example.com/a.jpg'),
@@ -166,6 +261,34 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(CoffeeFavoritesView), findsOneWidget);
+    });
+
+    testWidgets('image load error retries CoffeeRequested', (tester) async {
+      when(() => bloc.state).thenReturn(
+        const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+      whenListen(
+        bloc,
+        Stream<CoffeeState>.fromIterable(
+          [const CoffeeLoadSuccess('https://example.com/a.jpg')],
+        ),
+        initialState: const CoffeeLoadSuccess('https://example.com/a.jpg'),
+      );
+
+      await tester.pumpApp(buildSubject());
+
+      final image = tester.widget<Image>(find.byType(Image));
+      final errorBuilder = image.errorBuilder!;
+      final errorWidget = errorBuilder(
+        tester.element(find.byType(Image)),
+        const Object(),
+        StackTrace.empty,
+      );
+
+      final onRetry = (errorWidget as dynamic).onRetry as VoidCallback;
+      onRetry();
+
+      verify(() => bloc.add(const CoffeeRequested())).called(1);
     });
   });
 }

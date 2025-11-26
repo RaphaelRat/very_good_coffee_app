@@ -267,6 +267,25 @@ void main() {
           const CoffeeFavoritesLoadFailure('Unexpected error: Exception: boom'),
         ],
       );
+
+      blocTest<CoffeeBloc, CoffeeState>(
+        'emits [CoffeeFavoritesLoadInProgress, CoffeeFavoritesLoadFailure] '
+        'when loading favorites after delete fails',
+        build: () {
+          when(() => repository.deleteFavorite(image)).thenAnswer(
+            (_) async {},
+          );
+          when(() => repository.loadFavorites()).thenThrow(
+            const CoffeeRepositoryLoadFailure('load failed'),
+          );
+          return bloc;
+        },
+        act: (bloc) => bloc.add(const CoffeeFavoriteDeleted(image)),
+        expect: () => const <CoffeeState>[
+          CoffeeFavoritesLoadInProgress(),
+          CoffeeFavoritesLoadFailure('load failed'),
+        ],
+      );
     });
   });
 }
