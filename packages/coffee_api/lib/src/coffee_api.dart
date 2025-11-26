@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 
 /// Base class for all exceptions thrown by [CoffeeApi].
-@immutable
-sealed class CoffeeApiException implements Exception {
+abstract class CoffeeApiException implements Exception {
   /// Creates a new [CoffeeApiException].
   const CoffeeApiException();
 }

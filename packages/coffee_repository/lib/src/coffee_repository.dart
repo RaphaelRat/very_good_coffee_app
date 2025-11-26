@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:coffee_api/coffee_api.dart';
 import 'package:coffee_repository/src/exceptions.dart';
 import 'package:coffee_repository/src/models/coffee_image.dart';
-import 'package:meta/meta.dart';
 
 /// {@template coffee_repository}
 /// Repository responsible for fetching coffee images and storing favorites.
@@ -14,7 +13,6 @@ import 'package:meta/meta.dart';
 /// - downloading images
 /// - reading locally stored favorites
 /// {@endtemplate}
-@immutable
 class CoffeeRepository {
   /// Creates a new [CoffeeRepository] instance.
   CoffeeRepository({

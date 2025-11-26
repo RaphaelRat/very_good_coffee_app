@@ -1,10 +1,9 @@
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
 /// {@template coffee_image}
 /// Model representing a locally stored coffee image.
 /// {@endtemplate}
-@immutable
-class CoffeeImage {
+class CoffeeImage extends Equatable {
   /// Creates a new [CoffeeImage] instance.
   const CoffeeImage({
     required this.path,
@@ -14,9 +13,5 @@ class CoffeeImage {
   final String path;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is CoffeeImage && other.path == path;
-
-  @override
-  int get hashCode => path.hashCode;
+  List<Object?> get props => [path];
 }

@@ -1,15 +1,12 @@
 import 'package:coffee_repository/coffee_repository.dart' show CoffeeRepository;
 import 'package:coffee_repository/src/coffee_repository.dart'
     show CoffeeRepository;
-import 'package:meta/meta.dart';
-
 /// Base class for all exceptions thrown by the [CoffeeRepository].
 ///
 /// Repository exceptions represent domain-level failures. They are
 /// normalized errors that can be surfaced to the UI layer or handled
 /// by blocs without exposing lower-level implementation details.
-@immutable
-sealed class CoffeeRepositoryException implements Exception {
+abstract class CoffeeRepositoryException implements Exception {
   /// Creates a new [CoffeeRepositoryException].
   const CoffeeRepositoryException();
 }
