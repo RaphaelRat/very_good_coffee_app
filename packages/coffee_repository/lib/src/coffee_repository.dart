@@ -93,4 +93,24 @@ class CoffeeRepository {
       );
     }
   }
+
+  /// Deletes a stored favorite image.
+  Future<void> deleteFavorite(CoffeeImage coffeeImage) async {
+    try {
+      final file = File(coffeeImage.path);
+      if (!file.existsSync()) {
+        throw CoffeeRepositoryDeleteFailure(
+          'File not found at ${coffeeImage.path}',
+        );
+      }
+
+      await file.delete();
+    } catch (e) {
+      if (e is CoffeeRepositoryDeleteFailure) rethrow;
+
+      throw CoffeeRepositoryDeleteFailure(
+        'Failed to delete image: $e',
+      );
+    }
+  }
 }

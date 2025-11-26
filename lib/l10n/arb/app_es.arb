@@ -1,7 +1,53 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Café Tinder",
+    "counterAppBarTitle": "Very Good Café",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página principal de café"
+    },
+    "coffeeRefreshButtonLabel": "Nueva imagen",
+    "@coffeeRefreshButtonLabel": {
+        "description": "Etiqueta del botón que trae una nueva imagen de café"
+    },
+    "coffeeSaveAndNextButtonLabel": "Guardar y nueva",
+    "@coffeeSaveAndNextButtonLabel": {
+        "description": "Etiqueta del botón que guarda la imagen actual y busca otra"
+    },
+    "coffeeFavoritesButtonLabel": "Ver guardadas",
+    "@coffeeFavoritesButtonLabel": {
+        "description": "Etiqueta del botón que navega a la lista de favoritas"
+    },
+    "coffeeImageLoadErrorLabel": "No se pudo cargar la imagen.",
+    "@coffeeImageLoadErrorLabel": {
+        "description": "Error genérico cuando no se puede cargar una imagen de café"
+    },
+    "coffeeLoadingLabel": "Buscando café...",
+    "@coffeeLoadingLabel": {
+        "description": "Texto mostrado mientras se busca una imagen de café"
+    },
+    "coffeeRetryButtonLabel": "Intentar de nuevo",
+    "@coffeeRetryButtonLabel": {
+        "description": "Etiqueta de los botones de reintento en estados de error"
+    },
+    "coffeeFavoritesTitle": "Favoritos",
+    "@coffeeFavoritesTitle": {
+        "description": "Título de la página de lista de favoritos"
+    },
+    "coffeeFavoritesEmptyLabel": "Aún no hay imágenes guardadas.",
+    "@coffeeFavoritesEmptyLabel": {
+        "description": "Mensaje mostrado cuando no hay imágenes de café guardadas"
+    },
+    "coffeeFavoriteImageErrorLabel": "No se pudo abrir la imagen en {path}",
+    "@coffeeFavoriteImageErrorLabel": {
+        "description": "Mensaje mostrado cuando un archivo de imagen guardado no puede abrirse",
+        "placeholders": {
+            "path": {
+                "type": "String",
+                "example": "/favorites/imagen.jpg"
+            }
+        }
+    },
+    "coffeeFavoriteDeleteTooltip": "Eliminar imagen",
+    "@coffeeFavoriteDeleteTooltip": {
+        "description": "Tooltip para eliminar una imagen de café guardada"
     }
 }

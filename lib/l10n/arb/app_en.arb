@@ -1,7 +1,53 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Coffee Tinder",
+    "counterAppBarTitle": "Very Good Coffee",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the main coffee page"
+    },
+    "coffeeRefreshButtonLabel": "New image",
+    "@coffeeRefreshButtonLabel": {
+        "description": "Label for the button that fetches a new coffee image"
+    },
+    "coffeeSaveAndNextButtonLabel": "Save & new",
+    "@coffeeSaveAndNextButtonLabel": {
+        "description": "Label for the button that saves the current image and fetches another"
+    },
+    "coffeeFavoritesButtonLabel": "Saved images",
+    "@coffeeFavoritesButtonLabel": {
+        "description": "Label for the button that navigates to the favorites list"
+    },
+    "coffeeImageLoadErrorLabel": "Couldn't load image.",
+    "@coffeeImageLoadErrorLabel": {
+        "description": "Generic error when a coffee image cannot be loaded"
+    },
+    "coffeeLoadingLabel": "Fetching coffee...",
+    "@coffeeLoadingLabel": {
+        "description": "Shown while a coffee image is being fetched"
+    },
+    "coffeeRetryButtonLabel": "Try again",
+    "@coffeeRetryButtonLabel": {
+        "description": "Label for retry buttons in error states"
+    },
+    "coffeeFavoritesTitle": "Favorites",
+    "@coffeeFavoritesTitle": {
+        "description": "Title for the favorites list page"
+    },
+    "coffeeFavoritesEmptyLabel": "No saved images yet.",
+    "@coffeeFavoritesEmptyLabel": {
+        "description": "Message shown when there are no saved coffee images"
+    },
+    "coffeeFavoriteImageErrorLabel": "Could not open image at {path}",
+    "@coffeeFavoriteImageErrorLabel": {
+        "description": "Message shown when a saved image file cannot be opened",
+        "placeholders": {
+            "path": {
+                "type": "String",
+                "example": "/favorites/image.jpg"
+            }
+        }
+    },
+    "coffeeFavoriteDeleteTooltip": "Delete image",
+    "@coffeeFavoriteDeleteTooltip": {
+        "description": "Tooltip for deleting a saved coffee image"
     }
 }

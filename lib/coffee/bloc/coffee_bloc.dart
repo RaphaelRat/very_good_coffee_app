@@ -12,6 +12,7 @@ class CoffeeBloc extends Bloc<CoffeeEvent, CoffeeState> {
     on<CoffeeRequested>(_onCoffeeRequested);
     on<CoffeeSaved>(_onCoffeeSaved);
     on<CoffeeFavoritesRequested>(_onCoffeeFavoritesRequested);
+    on<CoffeeFavoriteDeleted>(_onCoffeeFavoriteDeleted);
   }
 
   final CoffeeRepository _repository;
@@ -41,7 +42,12 @@ class CoffeeBloc extends Bloc<CoffeeEvent, CoffeeState> {
       final url = await _repository.fetchRandomCoffeeImageUrl();
       emit(CoffeeLoadSuccess(url));
     } on CoffeeRepositoryDownloadFailure catch (e) {
-      emit(CoffeeLoadFailure('Could not save image: ${e.message}'));
+      emit(
+        CoffeeDownloadFailure(
+          message: 'Could not save image: ${e.message}',
+          imageUrl: event.imageUrl,
+        ),
+      );
     } on CoffeeRepositoryLoadFailure catch (e) {
       emit(CoffeeLoadFailure(e.message));
     } on Exception catch (e) {
@@ -57,6 +63,24 @@ class CoffeeBloc extends Bloc<CoffeeEvent, CoffeeState> {
     try {
       final favorites = await _repository.loadFavorites();
       emit(CoffeeFavoritesLoadSuccess(favorites));
+    } on CoffeeRepositoryLoadFailure catch (e) {
+      emit(CoffeeFavoritesLoadFailure(e.message));
+    } on Exception catch (e) {
+      emit(CoffeeFavoritesLoadFailure('Unexpected error: $e'));
+    }
+  }
+
+  Future<void> _onCoffeeFavoriteDeleted(
+    CoffeeFavoriteDeleted event,
+    Emitter<CoffeeState> emit,
+  ) async {
+    emit(const CoffeeFavoritesLoadInProgress());
+    try {
+      await _repository.deleteFavorite(event.coffeeImage);
+      final favorites = await _repository.loadFavorites();
+      emit(CoffeeFavoritesLoadSuccess(favorites));
+    } on CoffeeRepositoryDeleteFailure catch (e) {
+      emit(CoffeeFavoritesLoadFailure(e.message));
     } on CoffeeRepositoryLoadFailure catch (e) {
       emit(CoffeeFavoritesLoadFailure(e.message));
     } on Exception catch (e) {

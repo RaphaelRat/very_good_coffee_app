@@ -1,7 +1,53 @@
 {
     "@@locale": "pt",
-    "counterAppBarTitle": "Café Tinder",
+    "counterAppBarTitle": "Very Good Café",
     "@counterAppBarTitle": {
         "description": "Texto exibido na AppBar da página principal de café"
+    },
+    "coffeeRefreshButtonLabel": "Nova imagem",
+    "@coffeeRefreshButtonLabel": {
+        "description": "Rótulo do botão que busca uma nova imagem de café"
+    },
+    "coffeeSaveAndNextButtonLabel": "Salvar e nova",
+    "@coffeeSaveAndNextButtonLabel": {
+        "description": "Rótulo do botão que salva a imagem atual e busca outra"
+    },
+    "coffeeFavoritesButtonLabel": "Ver salvos",
+    "@coffeeFavoritesButtonLabel": {
+        "description": "Rótulo do botão que navega para a lista de favoritos"
+    },
+    "coffeeImageLoadErrorLabel": "Não foi possível carregar a imagem.",
+    "@coffeeImageLoadErrorLabel": {
+        "description": "Erro genérico quando uma imagem de café não pode ser carregada"
+    },
+    "coffeeLoadingLabel": "Buscando café...",
+    "@coffeeLoadingLabel": {
+        "description": "Texto mostrado enquanto uma imagem de café é buscada"
+    },
+    "coffeeRetryButtonLabel": "Tentar novamente",
+    "@coffeeRetryButtonLabel": {
+        "description": "Rótulo dos botões de tentar novamente em erros"
+    },
+    "coffeeFavoritesTitle": "Favoritos",
+    "@coffeeFavoritesTitle": {
+        "description": "Título da página de lista de favoritos"
+    },
+    "coffeeFavoritesEmptyLabel": "Nenhuma imagem salva ainda.",
+    "@coffeeFavoritesEmptyLabel": {
+        "description": "Mensagem mostrada quando não há imagens de café salvas"
+    },
+    "coffeeFavoriteImageErrorLabel": "Não foi possível abrir a imagem em {path}",
+    "@coffeeFavoriteImageErrorLabel": {
+        "description": "Mensagem mostrada quando um arquivo de imagem salvo não pode ser aberto",
+        "placeholders": {
+            "path": {
+                "type": "String",
+                "example": "/favorites/imagem.jpg"
+            }
+        }
+    },
+    "coffeeFavoriteDeleteTooltip": "Excluir imagem",
+    "@coffeeFavoriteDeleteTooltip": {
+        "description": "Tooltip para excluir uma imagem de café salva"
     }
 }

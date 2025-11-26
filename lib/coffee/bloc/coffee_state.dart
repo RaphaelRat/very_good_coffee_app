@@ -24,6 +24,16 @@ class CoffeeLoadSuccess extends CoffeeState {
   List<Object?> get props => [imageUrl];
 }
 
+class CoffeeDownloadFailure extends CoffeeState {
+  const CoffeeDownloadFailure({required this.imageUrl, required this.message});
+
+  final String imageUrl;
+  final String message;
+
+  @override
+  List<Object?> get props => [imageUrl, message];
+}
+
 class CoffeeLoadFailure extends CoffeeState {
   const CoffeeLoadFailure(this.message);
 

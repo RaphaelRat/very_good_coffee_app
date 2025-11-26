@@ -152,5 +152,30 @@ void main() {
         expect(paths, contains(fileB.path));
       });
     });
+
+    group('deleteFavorite', () {
+      test('deletes only the specified file', () async {
+        if (!tempDir.existsSync()) {
+          tempDir.createSync(recursive: true);
+        }
+
+        final fileA = File('${tempDir.path}/a.jpg')..writeAsBytesSync([1]);
+        final fileB = File('${tempDir.path}/b.jpg')..writeAsBytesSync([2]);
+
+        await repository.deleteFavorite(CoffeeImage(path: fileA.path));
+
+        expect(fileA.existsSync(), isFalse);
+        expect(fileB.existsSync(), isTrue);
+      });
+
+      test('throws delete failure when file does not exist', () async {
+        final missing = CoffeeImage(path: '${tempDir.path}/missing.jpg');
+
+        expect(
+          repository.deleteFavorite(missing),
+          throwsA(isA<CoffeeRepositoryDeleteFailure>()),
+        );
+      });
+    });
   });
 }

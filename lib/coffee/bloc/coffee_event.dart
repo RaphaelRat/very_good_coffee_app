@@ -23,3 +23,12 @@ class CoffeeSaved extends CoffeeEvent {
 class CoffeeFavoritesRequested extends CoffeeEvent {
   const CoffeeFavoritesRequested();
 }
+
+class CoffeeFavoriteDeleted extends CoffeeEvent {
+  const CoffeeFavoriteDeleted(this.coffeeImage);
+
+  final CoffeeImage coffeeImage;
+
+  @override
+  List<Object?> get props => [coffeeImage];
+}

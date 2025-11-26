@@ -29,6 +29,20 @@ class CoffeeRepositoryDownloadFailure extends CoffeeRepositoryException {
   final String message;
 }
 
+/// Exception thrown when deleting a stored favorite fails.
+///
+/// This can happen when the file cannot be found or when the underlying
+/// filesystem operation fails unexpectedly.
+class CoffeeRepositoryDeleteFailure extends CoffeeRepositoryException {
+  /// Creates a new [CoffeeRepositoryDeleteFailure].
+  ///
+  /// The [message] property contains additional context about the failure.
+  const CoffeeRepositoryDeleteFailure(this.message);
+
+  /// Description of the underlying failure.
+  final String message;
+}
+
 /// Exception thrown when reading stored favorite images fails.
 ///
 /// This happens when the favorites directory cannot be accessed or when

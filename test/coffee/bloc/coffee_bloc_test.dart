@@ -98,7 +98,7 @@ void main() {
       );
 
       blocTest<CoffeeBloc, CoffeeState>(
-        'emits [CoffeeLoadInProgress, CoffeeLoadFailure] '
+        'emits [CoffeeLoadInProgress, CoffeeDownloadFailure] '
         'when CoffeeRepositoryDownloadFailure is thrown',
         build: () {
           when(() => repository.saveFavorite(imageUrl)).thenThrow(
@@ -109,7 +109,10 @@ void main() {
         act: (bloc) => bloc.add(const CoffeeSaved(imageUrl)),
         expect: () => const <CoffeeState>[
           CoffeeLoadInProgress(),
-          CoffeeLoadFailure('Could not save image: download failed'),
+          CoffeeDownloadFailure(
+            message: 'Could not save image: download failed',
+            imageUrl: imageUrl,
+          ),
         ],
       );
 
@@ -205,6 +208,63 @@ void main() {
           const CoffeeFavoritesLoadFailure(
             'Unexpected error: Exception: boom',
           ),
+        ],
+      );
+    });
+
+    group('CoffeeFavoriteDeleted', () {
+      const image = CoffeeImage(path: '/tmp/a.jpg');
+
+      blocTest<CoffeeBloc, CoffeeState>(
+        'emits [CoffeeFavoritesLoadInProgress, CoffeeFavoritesLoadSuccess] '
+        'when delete succeeds',
+        build: () {
+          when(() => repository.deleteFavorite(image)).thenAnswer(
+            (_) async {},
+          );
+          when(() => repository.loadFavorites()).thenAnswer(
+            (_) async => const [CoffeeImage(path: '/tmp/b.jpg')],
+          );
+          return bloc;
+        },
+        act: (bloc) => bloc.add(const CoffeeFavoriteDeleted(image)),
+        expect: () => const <CoffeeState>[
+          CoffeeFavoritesLoadInProgress(),
+          CoffeeFavoritesLoadSuccess(
+            [CoffeeImage(path: '/tmp/b.jpg')],
+          ),
+        ],
+      );
+
+      blocTest<CoffeeBloc, CoffeeState>(
+        'emits [CoffeeFavoritesLoadInProgress, CoffeeFavoritesLoadFailure] '
+        'when CoffeeRepositoryDeleteFailure is thrown',
+        build: () {
+          when(() => repository.deleteFavorite(image)).thenThrow(
+            const CoffeeRepositoryDeleteFailure('delete failed'),
+          );
+          return bloc;
+        },
+        act: (bloc) => bloc.add(const CoffeeFavoriteDeleted(image)),
+        expect: () => const <CoffeeState>[
+          CoffeeFavoritesLoadInProgress(),
+          CoffeeFavoritesLoadFailure('delete failed'),
+        ],
+      );
+
+      blocTest<CoffeeBloc, CoffeeState>(
+        'emits [CoffeeFavoritesLoadInProgress, CoffeeFavoritesLoadFailure] '
+        'when unexpected exception is thrown',
+        build: () {
+          when(() => repository.deleteFavorite(image)).thenThrow(
+            Exception('boom'),
+          );
+          return bloc;
+        },
+        act: (bloc) => bloc.add(const CoffeeFavoriteDeleted(image)),
+        expect: () => <CoffeeState>[
+          const CoffeeFavoritesLoadInProgress(),
+          const CoffeeFavoritesLoadFailure('Unexpected error: Exception: boom'),
         ],
       );
     });
